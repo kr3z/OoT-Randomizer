@@ -166,6 +166,8 @@
           "text": "World",
           "row_span": [6,6,9],
           "settings": [
+            "win_condition",
+            "triforce_goal_per_world",
             "starting_age",
             "shuffle_interior_entrances",
             "shuffle_grotto_entrances",
@@ -174,8 +176,6 @@
             "owl_drops",
             "warp_songs",
             "spawn_positions",
-            "triforce_hunt",
-            "triforce_goal_per_world",
             "bombchus_in_logic",
             "one_item_per_dungeon",
             "mq_dungeons_random",

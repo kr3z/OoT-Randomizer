@@ -13,7 +13,7 @@
 "zora_fountain": "closed",
 "gerudo_fortress": "fast",
 "bridge": "medallions",
-"triforce_hunt": true,
+"win_condition": "triforce_hunt",
 "logic_rules": "glitchless",
 "reachable_locations": "all",
 "bombchus_in_logic": true,

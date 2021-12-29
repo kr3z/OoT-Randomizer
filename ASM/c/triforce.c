@@ -19,7 +19,7 @@ void set_triforce_render() {
 void draw_triforce_count(z64_disp_buf_t *db) {
 
     // Must be triforce hunt and triforce should be drawable, and we should either be on the pause screen or the render triforce flag should be set
-    if (!(triforce_hunt_enabled && CAN_DRAW_TRIFORCE && (render_triforce_flag == 1 || z64_game.pause_ctxt.state == 6))) {
+    if (!(triforce_hunt_enabled == 1 && CAN_DRAW_TRIFORCE && (render_triforce_flag == 1 || z64_game.pause_ctxt.state == 6))) {
         return;
     }
     

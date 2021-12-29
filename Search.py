@@ -220,7 +220,7 @@ class Search(object):
     #
     # predicate must be a function (state) -> bool, that will be applied to all states
     def can_beat_game(self, scan_for_items=True, predicate=State.won):
-
+        
         # Check if already beaten
         if all(map(predicate, self.state_list)):
             return True

@@ -1305,7 +1305,7 @@ def get_pool_core(world):
     if not world.keysanity and not world.dungeon_mq['Fire Temple']:
         world.state.collect(ItemFactory('Small Key (Fire Temple)'))
 
-    if world.settings.triforce_hunt:
+    if world.settings.win_condition == 'triforce_hunt':
         triforce_count = int((TriforceCounts[world.settings.item_pool_value] * world.settings.triforce_goal_per_world).to_integral_value(rounding=ROUND_HALF_UP))
         pending_junk_pool.extend(['Triforce Piece'] * triforce_count)
 

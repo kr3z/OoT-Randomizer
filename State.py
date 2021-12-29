@@ -4,16 +4,17 @@ import copy
 from Item import ItemInfo
 from Region import Region, TimeOfDay
 
-
-
 class State(object):
 
     def __init__(self, parent):
         self.prog_items = Counter()
         self.world = parent
         self.search = None
-        self._won = self.won_triforce_hunt if self.world.settings.triforce_hunt else self.won_normal
-
+        self._won = self.won_normal
+        if self.world.settings.win_condition == 'triforce_hunt':
+            self._won = self.won_triforce_hunt
+        elif self.world.settings.win_condition == 'ice':
+            self._won = self.won_ice
 
     ## Ensure that this will always have a value
     @property
@@ -39,10 +40,16 @@ class State(object):
     def won(self):
         return self._won()
 
-
     def won_triforce_hunt(self):
         return self.has('Triforce Piece', self.world.settings.triforce_goal_per_world)
 
+    def won_ice(self):
+        ice_song = self.item_name('Sheik in Ice Cavern')
+
+        if ice_song:
+            return self.has(ice_song)
+        else:
+            return self.search.can_reach_spot(self,'Sheik in Ice Cavern')
 
     def won_normal(self):
         return self.has('Triforce')

@@ -96,6 +96,23 @@ void give_fairy_ocarina(z64_file_t *save, int16_t arg1, int16_t arg2) {
 
 void give_song(z64_file_t *save, int16_t quest_bit, int16_t arg2) {
     save->quest_items |= 1 << quest_bit;
+
+     if (triforce_hunt_enabled == 2 && z64_game.scene_index == 0x09){
+         // Give GC boss key to allow beating the game again afterwards
+         give_dungeon_item(save, 0x01, 10);
+
+         // Save Game
+         save->entrance_index = z64_game.entrance_index;
+         save->scene_index = z64_game.scene_index;
+         commit_scene_flags(&z64_game);
+         save_game(&z64_game + 0x1F74);
+
+         // warp to start of credits sequence
+         z64_file.cutscene_next = 0xFFF8;
+         z64_game.entrance_index = 0x00A0;
+         z64_game.scene_load_flag = 0x14;
+         z64_game.fadeout_transition = 0x01;
+     }
 }
 
 void ice_trap_effect(z64_file_t *save, int16_t arg1, int16_t arg2) {

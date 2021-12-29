@@ -70,7 +70,7 @@ class World(object):
 
         self.triforce_goal = settings.triforce_goal_per_world * settings.world_count
 
-        if settings.triforce_hunt:
+        if settings.win_condition == 'triforce_hunt' or settings.win_condition == 'ice':
             # Pin shuffle_ganon_bosskey to 'triforce' when triforce_hunt is enabled
             # (specifically, for randomize_settings)
             self.settings.shuffle_ganon_bosskey = 'triforce'
@@ -588,9 +588,10 @@ class World(object):
         gbk = GoalCategory('ganon_bosskey', 20)
         trials = GoalCategory('trials', 30, minimum_goals=1)
         th = GoalCategory('triforce_hunt', 30, goal_count=round(self.settings.triforce_goal_per_world / 10), minimum_goals=1)
+        ice = GoalCategory('ice%',30)
         trial_goal = Goal(self, 'the Tower', 'path to the Tower', 'White', items=[], create_empty=True)
 
-        if self.settings.triforce_hunt and self.settings.triforce_goal_per_world > 0:
+        if self.settings.win_condition == 'triforce_hunt' and self.settings.triforce_goal_per_world > 0:
             triforce_count = int((TriforceCounts[self.settings.item_pool_value] * self.settings.triforce_goal_per_world).to_integral_value(rounding=ROUND_HALF_UP))
             # "Hintable" value of False means the goal items themselves cannot
             # be hinted directly. This is used for Triforce Hunt and Skull
@@ -604,6 +605,9 @@ class World(object):
             # an earlier order in the hint distro, etc).
             th.add_goal(Goal(self, 'gold', 'path of gold', 'Yellow', items=[{'name': 'Triforce Piece', 'quantity': triforce_count, 'minimum': self.settings.triforce_goal_per_world, 'hintable': False}]))
             self.goal_categories[th.name] = th
+
+        if self.settings.win_condition == 'ice':
+            ice.add_goal(Goal(self, 'ice', 'path of Ice', 'Light Blue', locations=[{'name': 'Sheik in Ice Cavern'}]))
         # Category goals are defined for each possible setting for each category.
         # Bridge can be Stones, Medallions, Dungeons, Skulls, or Vanilla.
         # Ganon's Boss Key can be Stones, Medallions, Dungeons, Skulls, LACS or
@@ -613,7 +617,7 @@ class World(object):
         # no trials), a fallback "path of the hero" clone of WOTH is created. Path
         # wording is used to distinguish the hint type even though the hintable location
         # set is identical to WOTH.
-        if not self.settings.triforce_hunt:
+        if not self.settings.win_condition == 'triforce_hunt' and not self.settings.win_condition == 'ice':
             # Bridge goals will always be defined as they have the most immediate priority
             if self.settings.bridge != 'open':
                 # "Replace" hint text dictionaries are used to reference the

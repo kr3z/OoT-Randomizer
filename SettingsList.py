@@ -1882,7 +1882,7 @@ setting_infos = [
                 'sections' : ['open_section', 'shuffle_section', 'shuffle_dungeon_section'],
                 'settings': ['starting_age', 'shuffle_interior_entrances', 'shuffle_grotto_entrances', 'shuffle_dungeon_entrances',
                              'shuffle_overworld_entrances', 'owl_drops', 'warp_songs', 'spawn_positions',
-                             'triforce_hunt', 'triforce_goal_per_world', 'bombchus_in_logic', 'one_item_per_dungeon'],
+                             'win_condition', 'triforce_goal_per_world', 'bombchus_in_logic', 'one_item_per_dungeon'],
             }
         },
         shared         = True,
@@ -2139,25 +2139,6 @@ setting_infos = [
         disabled_default = 0,
         gui_params     = {
             "hide_when_disabled": True,
-        },
-    ),
-    Checkbutton(
-        name           = 'triforce_hunt',
-        gui_text       = 'Triforce Hunt',
-        gui_tooltip    = '''\
-            Pieces of the Triforce have been scattered around the world. 
-            Find some of them to beat the game.
-
-            Game is saved on completion, and Ganon's Castle key is given
-            if beating the game again is desired.
-        ''',
-        shared         = True,
-        gui_params     = {
-            'randomize_key': 'randomize_settings',
-        },
-        disable        = {
-            True  : {'settings' : ['shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']},
-            False : {'settings' : ['triforce_goal_per_world']}
         },
     ),
     Scale(
@@ -3859,6 +3840,42 @@ setting_infos = [
             nighttime at 18:00 (6:00 PM).
         ''',
         shared         = True,
+    ),
+    Combobox(
+        name           = 'win_condition',
+        gui_text       = 'Win Condition',
+        default        = 'ganon',
+        choices        = {
+            'ganon':  'Ganon%',
+            'triforce_hunt':  'Triforce Hunt',
+            'ice': 'Ice%',
+        },
+        gui_tooltip    = '''\
+            Choose the win condition for the seed.
+
+            Ganon% means your goal is to beat ganon.
+
+            For Triforce Hunt, Pieces of the Triforce have been scattered around the world. 
+            Find some of them to beat the game.
+
+            For Ice%, learning the song in Ice Cavern beats the game (incompatible with shuffled songs).
+
+            For any non-Ganon% setting, game is saved on completion, and Ganon's Castle key is given
+            if beating the game again is desired.
+        ''',
+        shared         = True,
+        gui_params     = {
+            'randomize_key': 'randomize_settings',
+            'distribution': [
+                ('ganon', 1),
+                ('triforce_hunt', 1),
+            ],
+        },
+        disable        = {
+            'ganon': {'settings' : ['triforce_goal_per_world']},
+            'triforce_hunt'  : {'settings' : ['shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']},
+            'ice' : {'settings' : ['triforce_goal_per_world','shuffle_song_items','shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']}
+        },
     ),
     Combobox(
         name           = 'starting_age',

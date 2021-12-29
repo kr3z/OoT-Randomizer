@@ -165,6 +165,7 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
 
     # songs as items flag
     songs_as_items = world.settings.shuffle_song_items != 'song' or \
+                     world.settings.win_condition == 'ice' or \
                      world.distribution.song_as_items or \
                      world.settings.starting_songs
 
@@ -1046,9 +1047,11 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
         rom.write_int32(symbol, 5)
         rom.write_int16(count_symbol, world.settings.bridge_tokens)
 
-    if world.settings.triforce_hunt:
+    if world.settings.win_condition == 'triforce_hunt':
         rom.write_int16(rom.sym('triforce_pieces_requied'), world.triforce_goal)
         rom.write_int16(rom.sym('triforce_hunt_enabled'), 1)
+    elif world.settings.win_condition == 'ice':
+        rom.write_int16(rom.sym('triforce_hunt_enabled'), 2)
 
     # Set up Ganon's Boss Key conditions.
     symbol = rom.sym('GANON_BOSS_KEY_CONDITION')
