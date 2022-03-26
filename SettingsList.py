@@ -4111,7 +4111,7 @@ setting_infos = [
         disable        = {
             'ganon': {'settings' : ['triforce_goal_per_world']},
             'triforce_hunt'  : {'settings' : ['shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']},
-            'ice' : {'settings' : ['triforce_goal_per_world','shuffle_song_items','shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']}
+            'ice' : {'settings' : ['triforce_goal_per_world','shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']}
         },
     ),
     Combobox(

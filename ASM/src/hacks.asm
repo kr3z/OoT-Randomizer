@@ -2316,3 +2316,16 @@ skip_GS_BGS_text:
     sh      zero, 0x025E(s6) ; Replaces: sh      v1, 0x025E(s6)
 .orga 0xBC780C
     .byte 0x09               ; Replaces: 0x01
+
+;===================================================================================================
+;Hook into serenade cutscene for ice%
+;===================================================================================================
+;.orga 0xC7BD70
+;    jal     serenade_cs_hook
+;.orga 0xC7BCB8
+;    jal     setup_serenade_action_hook
+;.orga 0xC808B0
+;    jal EnXc_Init_hook ; replaces lui a2, 0x8002
+;    nop ; replaces addiu a2, a2, 0xEFF4
+.orga 0xC80880
+    jal EnXc_Update_hook ; replaces jalr ra, v1

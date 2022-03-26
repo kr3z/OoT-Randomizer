@@ -186,7 +186,6 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
 
     # songs as items flag
     songs_as_items = world.settings.shuffle_song_items != 'song' or \
-                     world.settings.win_condition == 'ice' or \
                      world.distribution.song_as_items or \
                      world.settings.starting_songs
 
