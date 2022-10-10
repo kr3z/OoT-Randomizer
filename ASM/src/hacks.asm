@@ -4001,3 +4001,10 @@ courtyard_guards_kill:
 ; Replaces Item_Give(play, ITEM_OCARINA_FAIRY)
     jal      fairy_ocarina_getitem_override
     nop
+
+;===================================================================================================
+; Prevent Ladder Softlock
+;===================================================================================================
+; Replaces:     lw      t2, 0x066c(s0)
+.orga 0xBE5528
+    jal ladder_softlock_hook
