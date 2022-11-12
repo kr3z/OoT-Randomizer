@@ -201,7 +201,7 @@ LACS_CONDITION:
 ; 5 = Hearts
 
 RAINBOW_BRIDGE_COUNT:
-.halfword 0x0064
+.word 0x00
 
 LACS_CONDITION_COUNT:
 .halfword 0x0000
