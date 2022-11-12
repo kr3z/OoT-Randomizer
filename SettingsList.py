@@ -5099,6 +5099,19 @@ setting_infos = [
         ''',
         default        = False,
     ),
+        Checkbutton(
+        name           = 'yeet_button',
+        gui_text       = 'Replace Throw Action Text With Yeet',
+        shared         = False,
+        cosmetic       = True,
+        gui_tooltip    = '''\
+            When Link holds an object over his head, the action
+            text for the A button will normally show 'Throw'. 
+            Enabling this option will update the 'Throw' text
+            to display 'Yeet' instead.
+        ''',
+        default        = False,
+    ),
     Combobox(
         name           = 'model_adult',
         gui_text       = 'Adult Link Model',

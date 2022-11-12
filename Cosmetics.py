@@ -828,6 +828,14 @@ def patch_voice(rom, settings, voice_file):
     apply_patch_file(rom, settings)
     settings.patch_file = patch_file
 
+def patch_action_text(rom, settings, log, symbols):
+    # Replace 'Throw' action text with 'Yeet'
+    if settings.yeet_button:    
+        with open(data_path('yeet_eng.ia4'), 'rb') as stream:
+            yeet_bytes = stream.read()
+            rom.write_bytes(0x8e3900, yeet_bytes)
+
+
 legacy_cosmetic_data_headers = [
     0x03481000,
     0x03480810,
@@ -845,6 +853,7 @@ global_patch_sets = [
     patch_voices,
     patch_sfx,
     patch_instrument,
+    patch_action_text,
 ]
 
 # 3.14.1
