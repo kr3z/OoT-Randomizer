@@ -4005,20 +4005,11 @@ courtyard_guards_kill:
 ;===================================================================================================
 ; Prevent Ladder Softlock
 ;===================================================================================================
-;;;;; Replaces:     addiu   t3, $zero, 0x0003
-;;;;.orga 0xBE5524
-;;;;    jal ladder_softlock_hook
-; Replaces:     lw  t9, 0x066C(s0)
-                sll t0, t9, 8
-;;;.orga 0xBD6AEC
-;;;    jal ladder_softlock_but_different_hook
-;;;    lw  t9, 0x066C(s0)
-
 ; Replaces      bne     v0, $zero, lbl_8084A6DC
 ;               nop
 ;               lw      t8, 0x066C(s0)
 .orga 0xBE806C
-    jal ladder_softlock_but_third_hook
+    jal ladder_softlock_hook
     lbu     t8, 0x69D(s0)   ; unk_6AD
     .word   0x14200005      ; bne at, zero, 0x0005
 
@@ -4028,14 +4019,3 @@ courtyard_guards_kill:
 ; Replaces:     lh      t6, 0x022E(s3)
 .orga 0xCEA574
     jal volvagia_softlock_hook
-
-;===================================================================================================
-; Prevent Weirdshot VC Crash
-;===================================================================================================
-; Replaces:     lui     $ra, 0x00FF
-;               andi    t1, v0, 0x000F
-;               sra     t4, v0,  4
-.orga 0xAEFEBC
-    jal weirdshot_crash_hook
-    andi    t1, v0, 0x000F
-    lui     ra, 0x00FF
